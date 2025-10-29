@@ -30,6 +30,7 @@ else
         rm "$FILE"
         storeNepaliDate
         notify-send "Stored new Nepali Date"
+        displayNepaliDate
     else
     displayNepaliDate
     fi

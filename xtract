@@ -12,11 +12,13 @@ extractZip(){
         fi
 
         if [[ -d ${zipFile%.zip} ]]; then
-            echo -e "Directory ${zipFile%.zip} already exists !! Exiting...\n"
+            existingDir=${zipFile#*/} # Remove the `./` prefix
+            existingDir=${existingDir%.*} # Remove the `.zip` extension
+            echo -e "Directory \`$existingDir\` already exists !!"
             exit 1
         fi
 
-        echo -e "Extracting $0 .\n"
+        echo -e "Extracting $(realpath $zipFile) \n"
         case $choice in
             "here")
                 unzip -q "$zipFile" 
@@ -27,9 +29,9 @@ extractZip(){
         esac
 
         if [[ $? -eq 0 ]]; then
-            echo "Successfully extracted $zipFile "
+            echo "Successfully extracted $(realpath $zipFile) "
         else
-            echo "Failed to extract $zipFile "
+            echo "Failed to extract $(realpath $zipFile) "
             exit 1
         fi
 
@@ -44,7 +46,9 @@ extractTar(){
         fi
         
         if [[ -d ${tarFile%.tar} ]]; then
-            echo -e "Directory ${tarFile%.tar} already exists !! Exiting...\n"
+            existingDir=${tarFile#*/} # Remove the `./` prefix
+            existingDir=${existingDir%.*} # Remove the `.tar` extension
+            echo -e "Directory \`$existingDir\` already exists !!"
             exit 1
         fi
 
