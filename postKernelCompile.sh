@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd ~/linux
+cd .
 
 sudo make modules_install
 

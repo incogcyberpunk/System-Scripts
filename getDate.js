@@ -125,6 +125,7 @@ function nepaliDayToEnglish(nepaliDay) {
         // Thursday
         'बिहीबार': 'Thursday',
         'बिहीवार': 'Thursday',
+        "बिहिवार": 'Thursday',
 
         // Friday
         'शुक्रबार': 'Friday',
@@ -161,9 +162,6 @@ const scrapeAndPrintData = async () => {
     let finalDatas = [datas[0], datas[1], datas[2], datas[3]];
 
     console.log(`\n ${finalDatas[0]} ${finalDatas[1]} ${finalDatas[2]}, ${finalDatas[3]} `);
-
-
-
 }
 
 scrapeAndPrintData();
