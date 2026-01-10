@@ -2,13 +2,16 @@
 
 pacakges="
     pipewire
+    sof-firmware
     pipewire-pulse
     pipewire-alsa
     pipewire-audio
     wireplumber
     git
+    github-cli
     neovim
     grub
+    uwsm
     efibootmgr
     os-prober
     fuse3
@@ -27,18 +30,17 @@ pacakges="
     keyd
     bun
     nodejs
+    npm
     brightnessctl
     xdg-desktop-portal-hyprland
     hyprpolkitagent
     hypridle
-    wlogout
-    wlogout
     slurp
     grim
     swappy
     hyprlock
     swww
-    waypaper
+    gparted
     hyprsunset
     wl-clipboard
     cliphist
@@ -52,9 +54,8 @@ pacakges="
     bat
     zoxide
     shellcheck
-    pwvucontrol
+    pavucontrol
     playerctl
-    stow
     yazi
     nemo
     hyprcursor
@@ -82,41 +83,25 @@ pacakges="
     virt-manager
     qemu
     handlr
-    localsend
     udisks2
     udiskie
     docker
-    brave
     nginx
-    spotify
     discord
     mpv
     libreoffice-fresh
     obsidian
     gimp
+    nerd-fonts
+    reflector
+    yt-dlp
+    stow
+    tree
 "
-
-function clone_dotfiles_repo(){
-    git clone https://github.com/IncogCyberpunk/dotfiles.git ~/dotfiles
-}
-
-function setup_dotfiles(){
-    cd ~/dotfiles
-    if sudo pacman -Qi stow >/dev/null ; then stow */ ;fi
-    cd ~
-}
-
-function install_yay(){
-    git clone https://aur.archlinux.org/yay.git ~/yay
-    cd ~/yay
-    makepkg -si --noconfirm
-    cd ~
-
-}
 
 function install_aur_packages(){
     aur_packages="
-        anydesk
+        anydesk-bin
         joplin
         gparted
         qimgv
@@ -136,7 +121,9 @@ function install_aur_packages(){
         auto-cpufreq
         zen-browser-bin
         zsh-autopair-git
-    sioyek
+        sioyek
+        spotify
+        bc
     "
     aur_packages=echo $aur_packages
 
@@ -146,6 +133,25 @@ function install_aur_packages(){
         echo "Failed to install AUR packages"
     fi
 }
+
+function clone_dotfiles_repo(){
+    git clone https://github.com/IncogCyberpunk/dotfiles.git ~/dotfiles
+}
+
+function setup_dotfiles(){
+    cd ~/dotfiles
+    if sudo pacman -Qi stow >/dev/null ; then stow */ ;fi
+    cd ~
+}
+
+function install_yay(){
+    git clone https://aur.archlinux.org/yay.git ~/yay
+    cd ~/yay
+    makepkg -si --noconfirm
+    cd ~
+
+}
+
 
 function install_packages(){
     packages=echo $packages
@@ -159,7 +165,8 @@ function install_packages(){
 
 function enable_services(){
         # Enable and start various system services
-        sudo systemctl enable --now NetworkManager
+        # sudo systemctl enable --now NetworkManager
+        sudo systemctl enable --now iwd
         sudo systemctl enable --now sshd
         sudo systemctl enable --now sddm
         sudo systemctl enable --now keyd
@@ -176,12 +183,17 @@ function enable_services(){
         systemctl --user enable --now wireplumber
         systemctl --user enable --now hypridle
         systemctl --user enable --now hyprpolkitagent
+        systemctl --user enable --now hyprsunset
+        systemctl --user enable --now swaync
 }
 
 function main(){
+    # install_yay
     install_packages
-    clone_dotfiles_repo
-    setup_dotfiles
+    # install_aur_packages
+    # clone_dotfiles_repo
+    # setup_dotfiles
+    enable_services
 }
 
 main

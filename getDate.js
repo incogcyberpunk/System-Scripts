@@ -1,4 +1,4 @@
-const cheerio = require('/usr/lib/node_modules/cheerio');
+import * as cheerio from 'cheerio';
 
 const convertNepaliToEnglishNum = (nepaliNum) => {
     switch (nepaliNum) {

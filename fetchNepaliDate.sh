@@ -1,16 +1,16 @@
-# Description: A bash script to fetch and store the Nepali date daily using a Node.js script.
+# Description: A bash script to fetch and store the Nepali date daily using a JS script.
 #!/usr/bin/env bash
 
 FILE="$HOME/nepaliDate"
 
 # Function to store the Nepali date
 storeNepaliDate(){
-    if [[ $(node ~/sysScripts/getDate.js) ]]; then 
-    nepaliDate=$(node ~/sysScripts/getDate.js | xargs echo)
+    if [[ $(bun ~/sysScripts/getDate.js) ]]; then 
+    nepaliDate=$(bun ~/sysScripts/getDate.js | xargs echo)
     echo -e "$(date +%d)\n$nepaliDate" >> "$FILE"
 else
-    notify-send "Error running Node.js script" "Check the terminal for more details."
-    echo "Error running Node.js script, try running the node.js script manually to debug."
+    notify-send "Error running script using Bun" "Check the terminal for more details."
+    echo "Error running script using Bun, try running the script manually to debug."
     exit
 fi
 }
