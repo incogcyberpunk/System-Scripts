@@ -19,12 +19,14 @@ pacakges="
     network-manager-applet
     impala
     base-devel
+    usbutils
+    jre-openjdk
     lazygit
     openssh
     pacman-contrib
     man-pages
     zsh
-    wezterm
+    ghostty
     hyprland
     sddm
     keyd
@@ -40,6 +42,7 @@ pacakges="
     swappy
     hyprlock
     swww
+    waypaper
     gparted
     hyprsunset
     wl-clipboard
@@ -47,6 +50,7 @@ pacakges="
     waybar
     rofi
     rofimoji
+    wtype
     bluez
     bluez-utils
     bluetui
@@ -55,8 +59,13 @@ pacakges="
     zoxide
     shellcheck
     pavucontrol
+    mpd
+    mpc
+    mpd-mpris
     playerctl
     yazi
+    qimgv
+    7zip
     nemo
     hyprcursor
     eza
@@ -74,14 +83,20 @@ pacakges="
     ripgrep
     vlc
     vlc-plugins-extra
+    vlc-plugin-ffmpeg
     exiftool
     mkvtoolnix-cli
     obs-studio
     v4l2loopback-dkms
     ffmpeg
     imagemagick
-    virt-manager
+    qbittorrent
     qemu
+    virt-manager
+    libvirtd
+    dnsmasq
+    iptables
+    spice-vdaagent
     handlr
     udisks2
     udiskie
@@ -93,14 +108,21 @@ pacakges="
     obsidian
     gimp
     nerd-fonts
+    noto-fonts
+    noto-fonts-emoji
+    noto-fonts-extra
     reflector
     yt-dlp
     stow
     tree
+    pacseek
+    tty-clock
+    spotify-launcher
 "
 
 function install_aur_packages(){
     aur_packages="
+        dragon-drop
         anydesk-bin
         joplin
         gparted
@@ -122,8 +144,8 @@ function install_aur_packages(){
         zen-browser-bin
         zsh-autopair-git
         sioyek
-        spotify
-        bc
+        brave-bin
+        vscode-js-debug-bin
     "
     aur_packages=echo $aur_packages
 
@@ -176,6 +198,8 @@ function enable_services(){
         sudo systemctl enable --now docker
         sudo systemctl enable --now usdiks2
         if sudo pacman -Qi auto-cpufreq >/dev/null ; then sudo systemctl enable --now auto-cpufreq ; fi
+        sudo systemctl enable --now libvirtd
+        sudo systemctl enable --now spice-vdaagent
 
         #Enable user services
         systemctl --user enable --now pipewire
