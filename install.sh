@@ -41,7 +41,6 @@ pacakges="
     grim
     swappy
     hyprlock
-    swww
     waypaper
     gparted
     hyprsunset
@@ -123,6 +122,7 @@ pacakges="
 function install_aur_packages(){
     aur_packages="
         dragon-drop
+        awww-git
         anydesk-bin
         joplin
         gparted
@@ -195,7 +195,7 @@ function enable_services(){
         sudo systemctl enable --now xdg-desktop-portal-hyprland
         sudo systemctl enable --now bluetooth
         if sudo pacman -Qi cups >/dev/null ; then sudo systemctl enable --now cups ; fi
-        sudo systemctl enable --now docker
+        sudo systemctl enable --now docker.socket
         sudo systemctl enable --now usdiks2
         if sudo pacman -Qi auto-cpufreq >/dev/null ; then sudo systemctl enable --now auto-cpufreq ; fi
         sudo systemctl enable --now libvirtd
