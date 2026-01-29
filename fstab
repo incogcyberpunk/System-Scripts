@@ -2,17 +2,19 @@
 # See fstab(5) for details.
 
 # <file system> <dir> <type> <options> <dump> <pass>
-# /dev/nvme0n1p6 LABEL=root
-UUID=ab10877f-71ea-4d97-a34d-32a67b154b96	/         	btrfs     	rw,relatime,ssd,discard=async,space_cache=v2,subvol=/	0 0
+
 
 # /dev/nvme0n1p4
-UUID=646B-FF12      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+UUID=77B8-9429      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
 
-# /dev/nvme0n1p5
-UUID=29188808489345DA   /mnt/Aayush         ntfs-3g        rw,uid=1000,guid=1000,defaults 0 0
+# /dev/nvme0n1p5 LABEL=Aayush
+UUID=29188808489345DA	/mnt/Aayush	ntfs-3g      	rw,uid=1000,gid=1000,umask=022	0 0
+
+# /dev/nvme0n1p6
+UUID=00be54da-a303-4a40-a215-5418762e9525	/         	btrfs     	rw,relatime,ssd,discard=async,space_cache=v2,subvol=/	0 1
 
 # /dev/nvme0n1p7 LABEL=var
-UUID=63d39471-cc0c-416e-954a-6b87178fd3a2	/var      	btrfs     	rw,relatime,ssd,discard=async,space_cache=v2,subvol=/	0 2
+UUID=735eac75-5d0d-4a0a-a184-893f585f31ac	/var      	btrfs     	rw,relatime,ssd,discard=async,space_cache=v2,subvol=/	0 2
 
 # /dev/nvme0n1p8 LABEL=home
 UUID=c781b343-21ca-45bd-a014-00cc8d2cfcf7	/home     	btrfs     	rw,relatime,ssd,discard=async,space_cache=v2,subvol=/	0 2
