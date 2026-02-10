@@ -39,7 +39,7 @@ packages="
     hypridle
     slurp
     grim
-    swappy
+    satty
     hyprlock
     waypaper
     gparted
@@ -63,11 +63,12 @@ packages="
     mpd-mpris
     playerctl
     yazi
-    qimgv
+    ristretto
     7zip
     nemo
     hyprcursor
     eza
+    duf
     nwg-look
     qt5ct
     qt6ct
@@ -121,7 +122,8 @@ packages="
 function install_aur_packages(){
     aur_packages="
         dragon-drop
-        awww-git
+        awww-bin
+        bibata-cursor
         anydesk-bin
         joplin
         gparted
@@ -165,6 +167,9 @@ function setup_dotfiles(){
     cd ~ || exit
 }
 
+function setup_cursor(){
+    sudo cp -r /usr/share/icons/{Bibata-Modern-Amber,Bibata-Modern-Ice} ~/.local/share/icons/ 2> /dev/null
+}
 function install_yay(){
     git clone https://aur.archlinux.org/yay.git ~/yay
     cd ~/yay || exit

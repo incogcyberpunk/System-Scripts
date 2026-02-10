@@ -7,8 +7,8 @@
 # /dev/nvme0n1p4
 UUID=77B8-9429      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
 
-# /dev/nvme0n1p5 LABEL=Aayush
-UUID=29188808489345DA	/mnt/Aayush	ntfs-3g      	rw,uid=1000,gid=1000,umask=022	0 0
+# /dev/nvme0n1p5 LABEL=Drive
+UUID=7c962713-db96-47c5-b5e9-f7a5ae322130 /mnt/Aayush ext4 defaults 0 2
 
 # /dev/nvme0n1p6
 UUID=00be54da-a303-4a40-a215-5418762e9525	/         	btrfs     	rw,relatime,ssd,discard=async,space_cache=v2,subvol=/	0 1
