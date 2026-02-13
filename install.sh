@@ -114,6 +114,7 @@ packages="
 
 function install_aur_packages(){
     aur_packages="
+        chaotic-aur/sdx
         awww-bin
         bibata-cursor
         anydesk-bin
