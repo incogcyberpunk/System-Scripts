@@ -2,11 +2,10 @@
 
 packages="
     pipewire
-    sof-firmware
     pipewire-pulse
     pipewire-alsa
-    pipewire-audio
     wireplumber
+    pavucontrol
     git
     github-cli
     neovim
@@ -112,11 +111,11 @@ packages="
     noto-fonts-extra
     reflector
     yt-dlp
+    python-curl_cffi
     stow
     tree
     pacseek
     tty-clock
-    spotify-launcher
 "
 
 function install_aur_packages(){
@@ -125,22 +124,14 @@ function install_aur_packages(){
         awww-bin
         bibata-cursor
         anydesk-bin
-        joplin
-        gparted
-        qimgv
         materialgram
         tmux-git
         pacseek
         xampp
-        hollywood
         vlc-pause-click-plugin
-        capt-src
         downgrade
         oh-my-posh
         opencode
-        stremio
-        qt5-webengine
-        qt5-webchannel
         auto-cpufreq
         zen-browser-bin
         zsh-autopair-git
@@ -148,9 +139,7 @@ function install_aur_packages(){
         brave-bin
         vscode-js-debug-bin
     "
-    aur_packages=echo $aur_packages
-
-    if yay -S --noconfirm --needed "$aur_packages" ; then
+    if yay -S --noconfirm --needed $aur_packages ; then
         echo "AUR packages installed successfully."
     else
         echo "Failed to install AUR packages"
@@ -180,9 +169,7 @@ function install_yay(){
 
 
 function install_packages(){
-    packages=echo $packages
-
-    if  sudo pacman -S --noconfirm --needed "$packages" ; then
+    if  sudo pacman -S --noconfirm --needed $packages ; then
         echo "All packages installed successfully."
     else
         echo "Some packages failed to install."
@@ -192,7 +179,6 @@ function install_packages(){
 function enable_services(){
         # Enable and start various system services
         # sudo systemctl enable --now NetworkManager
-        sudo systemctl enable --now iwd
         sudo systemctl enable --now sshd
         sudo systemctl enable --now sddm
         sudo systemctl enable --now keyd
@@ -201,8 +187,6 @@ function enable_services(){
         if sudo pacman -Qi cups >/dev/null ; then sudo systemctl enable --now cups ; fi
         sudo systemctl enable --now usdiks2
         if sudo pacman -Qi auto-cpufreq >/dev/null ; then sudo systemctl enable --now auto-cpufreq ; fi
-        sudo systemctl enable --now libvirtd
-        sudo systemctl enable --now spice-vdaagent
 
         #Enable user services
         systemctl --user enable --now pipewire
@@ -215,12 +199,12 @@ function enable_services(){
 }
 
 function main(){
-    # install_yay
+    install_yay
     install_packages
     # install_aur_packages
     # clone_dotfiles_repo
     # setup_dotfiles
-    enable_services
+    # enable_services
 }
 
 main
