@@ -9,8 +9,8 @@ packages="
     git
     github-cli
     neovim
+    tmux
     grub
-    uwsm
     efibootmgr
     os-prober
     fuse3
@@ -90,12 +90,6 @@ packages="
     ffmpeg
     imagemagick
     qbittorrent
-    qemu
-    virt-manager
-    libvirtd
-    dnsmasq
-    iptables
-    spice-vdaagent
     handlr
     udisks2
     udiskie
@@ -114,24 +108,21 @@ packages="
     python-curl_cffi
     stow
     tree
-    pacseek
     tty-clock
+    opencode
 "
 
 function install_aur_packages(){
     aur_packages="
-        dragon-drop
         awww-bin
         bibata-cursor
         anydesk-bin
         materialgram
-        tmux-git
         pacseek
         xampp
         vlc-pause-click-plugin
         downgrade
         oh-my-posh
-        opencode
         auto-cpufreq
         zen-browser-bin
         zsh-autopair-git
@@ -196,14 +187,17 @@ function enable_services(){
         systemctl --user enable --now hyprpolkitagent
         systemctl --user enable --now hyprsunset
         systemctl --user enable --now app-com.mitchellh.ghostty.service
+
+        # Source zsh-autopair
+        echo"source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh" >> ~/.zshrc
 }
 
 function main(){
-    install_yay
-    install_packages
+    # install_yay
+    # install_packages
     # install_aur_packages
     # clone_dotfiles_repo
-    # setup_dotfiles
+    setup_dotfiles
     # enable_services
 }
 
