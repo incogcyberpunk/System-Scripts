@@ -69,6 +69,7 @@ packages="
     eza
     duf
     nwg-look
+    nwg-displays
     qt5ct
     qt6ct
     filezilla
@@ -184,9 +185,7 @@ function enable_services(){
         systemctl --user enable --now pipewire
         systemctl --user enable --now pipewire-pulse
         systemctl --user enable --now wireplumber
-        systemctl --user enable --now hypridle
         systemctl --user enable --now hyprpolkitagent
-        systemctl --user enable --now hyprsunset
         systemctl --user enable --now app-com.mitchellh.ghostty.service
 
         # Source zsh-autopair
@@ -194,12 +193,12 @@ function enable_services(){
 }
 
 function main(){
-    # install_yay
-    # install_packages
-    # install_aur_packages
-    # clone_dotfiles_repo
+    install_yay
+    install_packages
+    install_aur_packages
+    clone_dotfiles_repo
     setup_dotfiles
-    # enable_services
+    enable_services
 }
 
 main
