@@ -3,5 +3,8 @@
 # Install Docker and related tools on Arch Linux
 sudo pacman -S --needed --noconfimr docker docker-compose docker-buildx
 
+# Add user to the docker group
+sudo usermod -aG docker $USER
+
 # Start Docker socket (officially recommended over starting the docker service )
 sudo systemctl enable --now docker.socket

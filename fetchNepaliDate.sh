@@ -1,5 +1,5 @@
-# Description: A bash script to fetch and store the Nepali date daily using a JS script.
 #!/usr/bin/env bash
+# Description: A bash script to fetch and store the Nepali date daily using a JS script.
 
 FILE="$HOME/nepaliDate"
 
