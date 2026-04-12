@@ -41,6 +41,7 @@ packages="
     satty
     hyprlock
     waypaper
+    awww
     gparted
     hyprsunset
     wl-clipboard
@@ -62,6 +63,7 @@ packages="
     mpd-mpris
     playerctl
     yazi
+    handlr-regex
     ristretto
     7zip
     nemo
@@ -91,7 +93,6 @@ packages="
     ffmpeg
     imagemagick
     qbittorrent
-    handlr
     udisks2
     udiskie
     nginx
@@ -116,7 +117,6 @@ packages="
 function install_aur_packages(){
     aur_packages="
         chaotic-aur/sdx
-        awww-bin
         bibata-cursor
         anydesk-bin
         materialgram
