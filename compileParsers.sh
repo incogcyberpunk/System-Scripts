@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+base=$(pwd)
+
+if [ $# -eq 1 ]; then
+  targets="$1"
+else
+  targets="./*"
+fi
+
+for parser in ./*; do
+  [ -d "$parser/src" ] || continue
+
+  echo "$parser"
+  parserName=${parser##*-}
+  echo "$parserName"
+
+  cd "$parser/src"
+
+  srcs="parser.c"
+  [ -f scanner.c ] && srcs="$srcs scanner.c"
+
+  gcc -O2 -shared -fPIC -I. -o "$parserName.so" $srcs \
+    && cp "$parserName.so" ~/.config/nvim/parser/
+
+  cd "$base"
+done

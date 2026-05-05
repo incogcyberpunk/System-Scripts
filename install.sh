@@ -11,6 +11,7 @@ packages="
     neovim
     tmux
     grub
+    kernel-modules-hook
     efibootmgr
     os-prober
     fuse3

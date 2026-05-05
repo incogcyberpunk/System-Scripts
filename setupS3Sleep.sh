@@ -5,7 +5,7 @@ configFile="/etc/default/grub"
 
 echo "Setting up S3 sleep (deep sleep) mode..."
 
-if [[ sudo sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT/ s/"$/mem_sleep_default=deep"/' $configFile ]]; then
+if  sudo sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT/ s/"$/mem_sleep_default=deep"/' $configFile ; then
     echo "S3 sleep mode configured successfully."
 else
     echo "Failed to configure S3 sleep mode."
@@ -13,7 +13,7 @@ else
 fi
 
 echo "Updating GRUB configuration..."
-if sudo update-grub; then
+if sudo grub-mkconfig -o /boot/grub/grub.cfg ; then
     echo "GRUB updated successfully. Please reboot your system to apply the changes."
 else
     echo "Failed to update GRUB."
