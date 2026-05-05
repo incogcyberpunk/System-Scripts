@@ -2,13 +2,13 @@
 
 base=$(pwd)
 
-if [ $# -eq 1 ]; then
+if [ ! $# -eq 0 ]; then
   targets="$1"
 else
   targets="./*"
 fi
 
-for parser in ./*; do
+for parser in $targets; do
   [ -d "$parser/src" ] || continue
 
   echo "$parser"
