@@ -11,5 +11,5 @@ fi
 for query in $targets ; do
     dir=~/.config/nvim/queries/${query##*-}
     mkdir -p "$dir"
-    cp $file/queries/* "$dir/"
+    cp $query/queries/* "$dir/"
 done
