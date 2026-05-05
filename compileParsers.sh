@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This script compiles the parsers from the source directory containing the repo to the runtimepath for treesitter parsers.
+
 base=$(pwd)
 
 if [ ! $# -eq 0 ]; then
