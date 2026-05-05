@@ -5,7 +5,7 @@
 base=$(pwd)
 
 if [ ! $# -eq 0 ]; then
-  targets="$1"
+  targets="$@"
 else
   targets="./*"
 fi
