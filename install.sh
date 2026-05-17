@@ -18,6 +18,7 @@ packages="
     networkmanager
     network-manager-applet
     impala
+    dhcpcd
     base-devel
     usbutils
     jre-openjdk
