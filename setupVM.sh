@@ -2,6 +2,8 @@
 
 sudo pacman -S qemu-full libvirt virt-manager dnsmasq iptables virtiofsd
 
+sudo pacman -S --noconfirm swtpm
+
 sudo systemctl enable --now libvirtd
 sudo usermod -aG libvirt $USER
 
