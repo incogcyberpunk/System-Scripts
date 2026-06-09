@@ -2,7 +2,7 @@
 # Storage format: username:password (one per line), colon-delimited
 # NOTE: passwords containing ':' are not supported
 
-set -uo pipefail
+set -uo pipefail # -u treats unset var. as error, -o pipefail causes pipeline makes entire pipeline return exit code of first failed command in pipeline instead
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
@@ -16,7 +16,7 @@ touch "$DB_FILE"
 # ── Internal helpers ──────────────────────────────────────────────────────────
 
 _request() {
-    curl -s -k -X POST "$PORTAL_URL" \
+    curl -skX POST "$PORTAL_URL" \
         -d "mode=191&username=${1}&password=${2}"
 }
 
@@ -106,7 +106,7 @@ loop_db_login() {
 
     printf '[*] Cycling through stored credentials...\n'
 
-    while IFS= read -r line; do
+    while read -r line; do
         [[ -z "$line" ]] && continue
         local username="${line%%:*}"
         local password="${line#*:}"
