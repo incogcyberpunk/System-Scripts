@@ -137,6 +137,10 @@ EOF
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
+# Check if the first argument is a help flag before validating the number of arguments
+argument=$1
+[[ "$argument" == "-h" || "$argument" == "--help" ]] && usage
+
 case "$#" in
     0) loop_db_login ;;
     1) attempt_login "$1" "$1" ;;
