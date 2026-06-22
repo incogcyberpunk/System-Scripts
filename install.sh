@@ -35,6 +35,7 @@ packages="
     nodejs
     npm
     brightnessctl
+    xdg-desktop-portal
     xdg-desktop-portal-hyprland
     hyprpolkitagent
     hypridle
