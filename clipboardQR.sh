@@ -30,6 +30,9 @@ elif [[ $# -ge 1 ]]; then
 elif [[ ! -t 0 ]]; then
     # if stdin is not a terminal -> data is being piped/redirected in
     content="$(cat -)"
+elif command -v wl-paste &>/dev/null; then
+    # No args, no stdin, but wl-paste is available -> use clipboard content
+    content="$(wl-paste)"
 else
     usage
 fi
