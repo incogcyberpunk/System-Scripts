@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -uo pipefail
+set -euo pipefail
 
 if [[ ! -f "/tmp/vimMode.txt" ]]; then
     isActive="0"
