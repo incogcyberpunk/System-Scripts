@@ -22,7 +22,7 @@ packages="
     base-devel
     usbutils
     jre-openjdk
-    lazygit
+    lazyjournal
     openssh
     pacman-contrib
     man-pages
