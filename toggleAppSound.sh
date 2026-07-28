@@ -14,7 +14,7 @@ get_app_name(){
 
 get_app_ID(){
     app_name=$(get_app_name)
-    id=$(wpctl status | rg "$app_name" | tail -n 1 | awk '{print $1}')
+    id=$(wpctl status | rg "$app_name" | tail -n 1 | awk '{print $1}' | cut -d. -f1)
     echo "$id"
 }
 
