@@ -44,7 +44,7 @@ fi
 }
 
 # --- Render QR in a ghostty popup, pause so it doesn't vanish instantly ---
-ghostty -e bash -c "qrencode -t UTF8i '$content';
+ghostty --class="qr.cliboard" -e bash -c "qrencode -m 1 -t UTF8i '$content';
 echo;
 echo 'Press any key to close...';
 read -n 1 -s;
