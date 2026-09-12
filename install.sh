@@ -84,6 +84,9 @@ packages="
     cups-pdf
     system-config-printer
     python
+    python-gobject
+    gtk4
+    gtk4-layer-shell
     fd
     ripgrep
     vlc
@@ -152,6 +155,16 @@ function setup_dotfiles(){
     cd ~ || exit
 }
 
+function setup_nepali_patro(){
+    git clone https://github.com/IncogCyberpunk/nepaliPatro.git ~/nepaliPatro
+    # Exec= expands neither ~ nor variables, so the entry ships a placeholder
+    # and is copied, not symlinked, with the real path substituted in.
+    mkdir -p ~/.local/share/applications
+    sed "s|@PATRO@|$HOME/nepaliPatro/patro|g" ~/nepaliPatro/nepaliPatro.desktop \
+        > ~/.local/share/applications/nepaliPatro.desktop
+    update-desktop-database ~/.local/share/applications 2>/dev/null || true
+}
+
 function setup_cursor(){
     sudo cp -r /usr/share/icons/{Bibata-Modern-Amber,Bibata-Modern-Ice} ~/.local/share/icons/ 2> /dev/null
 }
@@ -201,6 +214,7 @@ function main(){
     install_aur_packages
     clone_dotfiles_repo
     setup_dotfiles
+    setup_nepali_patro
     enable_services
 }
 
