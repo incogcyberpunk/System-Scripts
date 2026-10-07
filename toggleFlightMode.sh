@@ -6,5 +6,5 @@ if rfkill | awk '{print $4}' | grep -qx blocked ; then
     notify-send -u normal -t 1100 -h string:x-canonical-private-synchronous:flight-mode-status -i $iconsDir/airplane-mode-off.png  "Flight Mode" "Disabled" 
 else
     rfkill block all
-    notify-send -u normal -t 1100 -h string:x-canonical-private-synchronous:flight-mode-status -i $iconsDir/airplane-mode-off.png  "Flight Mode" "Enabled"
+    notify-send -u normal -t 1100 -h string:x-canonical-private-synchronous:flight-mode-status -i $iconsDir/airplane-mode-on.png  "Flight Mode" "Enabled"
 fi
