@@ -27,6 +27,11 @@ packages="
     pacman-contrib
     man-pages
     zsh
+    zsh-autosuggestions
+    zsh-completions
+    zsh-doc
+    zsh-history-substring-search
+    zsh-syntax-highlighting
     ghostty
     hyprland
     sddm
