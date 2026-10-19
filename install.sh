@@ -83,6 +83,7 @@ packages="
     nwg-displays
     qt5ct
     qt6ct
+    android-file-transfer
     filezilla
     netcat
     swaync
