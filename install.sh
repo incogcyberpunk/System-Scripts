@@ -54,6 +54,7 @@ packages="
     hyprsunset
     wl-clipboard
     cliphist
+    qrencode
     waybar
     rofi
     rofimoji
