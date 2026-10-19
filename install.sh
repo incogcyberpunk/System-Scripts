@@ -70,6 +70,7 @@ packages="
     mpc
     mpd-mpris
     playerctl
+    brightnessctl
     yazi
     handlr-regex
     ristretto
