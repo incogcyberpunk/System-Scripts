@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 
-packages=(
+# Packages from the official [core] repository
+core_packages=(
+    grub
+    efibootmgr
+    base-devel
+    usbutils
+    openssh
+    man-pages
+    python
+)
+
+# Packages from the official [extra] repository
+extra_packages=(
     pipewire
     pipewire-pulse
     pipewire-alsa
@@ -10,21 +22,15 @@ packages=(
     github-cli
     neovim
     tmux
-    grub
     kernel-modules-hook
-    efibootmgr
     os-prober
     fuse3
     networkmanager
     network-manager-applet
     impala
     dhcpcd
-    base-devel
-    usbutils
     jre-openjdk
-    openssh
     pacman-contrib
-    man-pages
     zsh
     zsh-autosuggestions
     zsh-completions
@@ -87,7 +93,6 @@ packages=(
     cups
     cups-pdf
     system-config-printer
-    python
     python-gobject
     gtk4
     gtk4-layer-shell
@@ -184,7 +189,9 @@ function install_yay(){
 
 
 function install_packages(){
-    if  sudo pacman -S --noconfirm --needed extra/{${packages[$@]}} ; then
+    if  sudo pacman -S --noconfirm --needed \
+            "${core_packages[@]/#/core/}" \
+            "${extra_packages[@]/#/extra/}" ; then
         echo "All packages installed successfully."
     else
         echo "Some packages failed to install."
