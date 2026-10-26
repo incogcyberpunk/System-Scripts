@@ -149,7 +149,7 @@ function install_aur_packages(){
         waypaper
         tty-clock
     )
-    if yay -S --noconfirm --needed $aur_packages ; then
+    if yay -S --noconfirm --needed "${aur_packages[@]}" ; then
         echo "AUR packages installed successfully."
     else
         echo "Failed to install AUR packages"
