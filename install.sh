@@ -22,7 +22,6 @@ packages=(
     base-devel
     usbutils
     jre-openjdk
-    lazyjournal
     openssh
     pacman-contrib
     man-pages
@@ -48,7 +47,6 @@ packages=(
     grim
     satty
     hyprlock
-    waypaper
     awww
     gparted
     hyprsunset
@@ -122,7 +120,6 @@ packages=(
     python-curl_cffi
     stow
     tree
-    tty-clock
     opencode
 )
 
@@ -143,6 +140,9 @@ function install_aur_packages(){
         sioyek
         brave-bin
         vscode-js-debug-bin
+        lazyjournal
+        waypaper
+        tty-clock
     )
     if yay -S --noconfirm --needed $aur_packages ; then
         echo "AUR packages installed successfully."
