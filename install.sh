@@ -216,15 +216,37 @@ function enable_services(){
         echo"source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh" >> ~/.zshrc
 }
 
-function main(){
-    install_yay
-    install_packages
-    install_aur_packages
-    clone_dotfiles_repo
-    setup_dotfiles
-    setup_nepali_patro
-    enable_services
+function executeAll(){
+        install_yay
+        install_packages
+        install_aur_packages
+        clone_dotfiles_repo
+        setup_dotfiles
+        setup_nepali_patro
+        enable_services
 }
 
-main
-
+# Decision for what is to be done
+case "$1" in
+    "yay")
+        install_yay
+        ;;
+    "pkgs")
+        install_packages
+        ;;
+    "aurPkgs")
+        install_aur_packages
+        ;;
+    "dotfiles")
+        setup_dotfiles
+        ;;
+    "patro")
+        setup_nepali_patro
+        ;;
+    "services")
+        enable_services
+        ;;
+    *)
+        executeAll
+        ;;
+esac
