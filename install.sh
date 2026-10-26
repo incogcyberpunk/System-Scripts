@@ -128,6 +128,38 @@ extra_packages=(
     opencode
 )
 
+# Install all given packages in one transaction. A pacman transaction is
+# all-or-nothing, so a single conflict aborts the whole batch; if that happens,
+# retry each package on its own so only the problematic ones are skipped.
+# Usage: install_with_fallback <install-function> <packages...>
+function install_with_fallback(){
+    local install_cmd=$1
+    shift
+
+    "$install_cmd" "$@" && return 0
+
+    echo "Batch install failed, retrying packages one at a time..."
+    local failed=()
+    local pkg
+    for pkg in "$@"; do
+        "$install_cmd" "$pkg" || failed+=("$pkg")
+    done
+
+    if (( ${#failed[@]} )); then
+        echo "These packages could not be installed:"
+        printf '  %s\n' "${failed[@]}"
+        return 1
+    fi
+}
+
+function pacman_install(){
+    sudo pacman -S --noconfirm --needed "$@"
+}
+
+function yay_install(){
+    yay -S --noconfirm --needed "$@"
+}
+
 function install_aur_packages(){
     aur_packages=(
         chaotic-aur/sdx
@@ -149,7 +181,7 @@ function install_aur_packages(){
         waypaper
         tty-clock
     )
-    if yay -S --noconfirm --needed "${aur_packages[@]}" ; then
+    if install_with_fallback yay_install "${aur_packages[@]}" ; then
         echo "AUR packages installed successfully."
     else
         echo "Failed to install AUR packages"
@@ -189,7 +221,7 @@ function install_yay(){
 
 
 function install_packages(){
-    if  sudo pacman -S --noconfirm --needed \
+    if install_with_fallback pacman_install \
             "${core_packages[@]/#/core/}" \
             "${extra_packages[@]/#/extra/}" ; then
         echo "All packages installed successfully."
