@@ -218,7 +218,7 @@ function enable_services(){
         systemctl --user enable --now app-com.mitchellh.ghostty.service
 
         # Source zsh-autopair
-        echo"source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh" >> ~/.zshrc
+        echo "source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh" >> ~/.zshrc
 }
 
 function executeAll(){
