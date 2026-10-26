@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-packages="
+packages=(
     pipewire
     pipewire-pulse
     pipewire-alsa
@@ -126,10 +126,10 @@ packages="
     tree
     tty-clock
     opencode
-"
+)
 
 function install_aur_packages(){
-    aur_packages="
+    aur_packages=(
         chaotic-aur/sdx
         bibata-cursor
         anydesk-bin
@@ -145,7 +145,7 @@ function install_aur_packages(){
         sioyek
         brave-bin
         vscode-js-debug-bin
-    "
+    )
     if yay -S --noconfirm --needed $aur_packages ; then
         echo "AUR packages installed successfully."
     else
@@ -186,7 +186,7 @@ function install_yay(){
 
 
 function install_packages(){
-    if  sudo pacman -S --noconfirm --needed $packages ; then
+    if  sudo pacman -S --noconfirm --needed extra/{${packages[$@]}} ; then
         echo "All packages installed successfully."
     else
         echo "Some packages failed to install."
