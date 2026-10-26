@@ -66,12 +66,10 @@ packages=(
     bat
     zoxide
     shellcheck
-    pavucontrol
     mpd
     mpc
     mpd-mpris
     playerctl
-    brightnessctl
     yazi
     handlr-regex
     ristretto
