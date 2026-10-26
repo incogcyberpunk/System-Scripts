@@ -207,7 +207,7 @@ function enable_services(){
         sudo systemctl enable --now xdg-desktop-portal-hyprland
         sudo systemctl enable --now bluetooth
         if sudo pacman -Qi cups >/dev/null ; then sudo systemctl enable --now cups ; fi
-        sudo systemctl enable --now usdiks2
+        sudo systemctl enable --now udisks2
         if sudo pacman -Qi auto-cpufreq >/dev/null ; then sudo systemctl enable --now auto-cpufreq ; fi
 
         #Enable user services
