@@ -199,7 +199,7 @@ function setup_dotfiles(){
 }
 
 function setup_nepali_patro(){
-    git clone https://github.com/IncogCyberpunk/nepaliPatro.git ~/nepaliPatro
+    git clone https://github.com/incogcyberpunk/nepali-patro ~/nepaliPatro
     # Exec= expands neither ~ nor variables, so the entry ships a placeholder
     # and is copied, not symlinked, with the real path substituted in.
     mkdir -p ~/.local/share/applications
