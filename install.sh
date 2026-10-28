@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 
-packages="
+# Packages from the official [core] repository
+core_packages=(
+    grub
+    efibootmgr
+    base-devel
+    usbutils
+    openssh
+    man-pages
+    python
+)
+
+# Packages from the official [extra] repository
+extra_packages=(
     pipewire
     pipewire-pulse
     pipewire-alsa
@@ -10,22 +22,15 @@ packages="
     github-cli
     neovim
     tmux
-    grub
     kernel-modules-hook
-    efibootmgr
     os-prober
     fuse3
     networkmanager
     network-manager-applet
     impala
     dhcpcd
-    base-devel
-    usbutils
     jre-openjdk
-    lazyjournal
-    openssh
     pacman-contrib
-    man-pages
     zsh
     zsh-autosuggestions
     zsh-completions
@@ -48,7 +53,6 @@ packages="
     grim
     satty
     hyprlock
-    waypaper
     awww
     gparted
     hyprsunset
@@ -66,12 +70,10 @@ packages="
     bat
     zoxide
     shellcheck
-    pavucontrol
     mpd
     mpc
     mpd-mpris
     playerctl
-    brightnessctl
     yazi
     handlr-regex
     ristretto
@@ -91,7 +93,6 @@ packages="
     cups
     cups-pdf
     system-config-printer
-    python
     python-gobject
     gtk4
     gtk4-layer-shell
@@ -124,12 +125,43 @@ packages="
     python-curl_cffi
     stow
     tree
-    tty-clock
     opencode
-"
+)
+
+# Install all given packages in one transaction. A pacman transaction is
+# all-or-nothing, so a single conflict aborts the whole batch; if that happens,
+# retry each package on its own so only the problematic ones are skipped.
+# Usage: install_with_fallback <install-function> <packages...>
+function install_with_fallback(){
+    local install_cmd=$1
+    shift
+
+    "$install_cmd" "$@" && return 0
+
+    echo "Batch install failed, retrying packages one at a time..."
+    local failed=()
+    local pkg
+    for pkg in "$@"; do
+        "$install_cmd" "$pkg" || failed+=("$pkg")
+    done
+
+    if (( ${#failed[@]} )); then
+        echo "These packages could not be installed:"
+        printf '  %s\n' "${failed[@]}"
+        return 1
+    fi
+}
+
+function pacman_install(){
+    sudo pacman -S --noconfirm --needed "$@"
+}
+
+function yay_install(){
+    yay -S --noconfirm --needed "$@"
+}
 
 function install_aur_packages(){
-    aur_packages="
+    aur_packages=(
         chaotic-aur/sdx
         bibata-cursor
         anydesk-bin
@@ -145,8 +177,11 @@ function install_aur_packages(){
         sioyek
         brave-bin
         vscode-js-debug-bin
-    "
-    if yay -S --noconfirm --needed $aur_packages ; then
+        lazyjournal
+        waypaper
+        tty-clock
+    )
+    if install_with_fallback yay_install "${aur_packages[@]}" ; then
         echo "AUR packages installed successfully."
     else
         echo "Failed to install AUR packages"
@@ -186,7 +221,9 @@ function install_yay(){
 
 
 function install_packages(){
-    if  sudo pacman -S --noconfirm --needed $packages ; then
+    if install_with_fallback pacman_install \
+            "${core_packages[@]/#/core/}" \
+            "${extra_packages[@]/#/extra/}" ; then
         echo "All packages installed successfully."
     else
         echo "Some packages failed to install."
@@ -202,7 +239,7 @@ function enable_services(){
         sudo systemctl enable --now xdg-desktop-portal-hyprland
         sudo systemctl enable --now bluetooth
         if sudo pacman -Qi cups >/dev/null ; then sudo systemctl enable --now cups ; fi
-        sudo systemctl enable --now usdiks2
+        sudo systemctl enable --now udisks2
         if sudo pacman -Qi auto-cpufreq >/dev/null ; then sudo systemctl enable --now auto-cpufreq ; fi
 
         #Enable user services
@@ -213,18 +250,67 @@ function enable_services(){
         systemctl --user enable --now app-com.mitchellh.ghostty.service
 
         # Source zsh-autopair
-        echo"source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh" >> ~/.zshrc
+        echo "source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh" >> ~/.zshrc
 }
 
-function main(){
-    install_yay
-    install_packages
-    install_aur_packages
-    clone_dotfiles_repo
-    setup_dotfiles
-    setup_nepali_patro
-    enable_services
+function executeAll(){
+        install_yay
+        install_packages
+        install_aur_packages
+        clone_dotfiles_repo
+        setup_dotfiles
+        setup_nepali_patro
+        enable_services
 }
 
-main
+function usage(){
+    cat <<EOF
+Usage: $0 <command>
 
+Commands:
+    all         Run every step below in order, cloning ~/dotfiles before stowing
+    yay         Build and install the yay AUR helper
+    pkgs        Install packages from the official core and extra repos
+    aurPkgs     Install AUR packages with yay
+    dotfiles    Symlink the dotfiles in ~/dotfiles with stow
+    patro       Install the Nepali Patro calendar
+    services    Enable system and user services
+EOF
+}
+
+# Decision for what is to be done
+case "$1" in
+    "all")
+        executeAll
+        ;;
+    "yay")
+        install_yay
+        ;;
+    "pkgs")
+        install_packages
+        ;;
+    "aurPkgs")
+        install_aur_packages
+        ;;
+    "dotfiles")
+        setup_dotfiles
+        ;;
+    "patro")
+        setup_nepali_patro
+        ;;
+    "services")
+        enable_services
+        ;;
+    "-h" | "--help")
+        usage
+        ;;
+    "")
+        usage
+        exit 1
+        ;;
+    *)
+        echo "Unknown command: $1" >&2
+        usage >&2
+        exit 1
+        ;;
+esac
