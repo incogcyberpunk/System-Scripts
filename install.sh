@@ -263,8 +263,26 @@ function executeAll(){
         enable_services
 }
 
+function usage(){
+    cat <<EOF
+Usage: $0 <command>
+
+Commands:
+    all         Run every step below in order, cloning ~/dotfiles before stowing
+    yay         Build and install the yay AUR helper
+    pkgs        Install packages from the official core and extra repos
+    aurPkgs     Install AUR packages with yay
+    dotfiles    Symlink the dotfiles in ~/dotfiles with stow
+    patro       Install the Nepali Patro calendar
+    services    Enable system and user services
+EOF
+}
+
 # Decision for what is to be done
 case "$1" in
+    "all")
+        executeAll
+        ;;
     "yay")
         install_yay
         ;;
@@ -283,7 +301,16 @@ case "$1" in
     "services")
         enable_services
         ;;
+    "-h" | "--help")
+        usage
+        ;;
+    "")
+        usage
+        exit 1
+        ;;
     *)
-        executeAll
+        echo "Unknown command: $1" >&2
+        usage >&2
+        exit 1
         ;;
 esac
