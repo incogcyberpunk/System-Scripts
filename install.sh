@@ -26,7 +26,7 @@ extra_packages=(
     os-prober
     fuse3
     networkmanager
-    network-manager-applet
+    dnsmasq
     impala
     dhcpcd
     jre-openjdk
