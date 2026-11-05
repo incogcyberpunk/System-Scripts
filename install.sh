@@ -230,6 +230,19 @@ function install_packages(){
     fi
 }
 
+# Stow the userSystemd package unless it is already fully stowed. A stow dry
+# run prints a LINK line for every symlink it would create, so a clean dry run
+# without any LINK lines means there is nothing left to stow.
+function stow_user_systemd(){
+    local stow_args=(-d "$HOME/dotfiles" -t "$HOME" userSystemd)
+    local plan
+    if plan=$(stow -n -v "${stow_args[@]}" 2>&1) && ! grep -q '^LINK:' <<< "$plan" ; then
+        echo "userSystemd is already stowed."
+        return 0
+    fi
+    stow "${stow_args[@]}"
+}
+
 function enable_services(){
         # Enable and start various system services
         # sudo systemctl enable --now NetworkManager
@@ -248,6 +261,16 @@ function enable_services(){
         systemctl --user enable --now wireplumber
         systemctl --user enable --now hyprpolkitagent
         systemctl --user enable --now app-com.mitchellh.ghostty.service
+
+        # Enable the custom user units shipped in the userSystemd stow package
+        if stow_user_systemd ; then
+            systemctl --user daemon-reload
+            systemctl --user enable --now playerctld.service
+            systemctl --user enable --now tmuxSetup.service
+            systemctl --user enable --now random-wallpaper.timer
+        else
+            echo "Failed to stow userSystemd, skipping its user units."
+        fi
 
         # Source zsh-autopair
         echo "source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh" >> ~/.zshrc
