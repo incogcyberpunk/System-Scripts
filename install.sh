@@ -113,6 +113,7 @@ extra_packages=(
     nginx
     discord
     mpv
+    mpv-mpris
     libreoffice-fresh
     obsidian
     gimp
